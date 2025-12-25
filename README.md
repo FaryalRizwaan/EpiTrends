@@ -1,102 +1,156 @@
-HealthTrendAnalyzer 🩺
+# EpiTrends 📊
 
-Project Description 📘
+**Real-time Public Health Trend Analyzer**
 
-HealthTrendAnalyzer is a professional, credible, and educational public health trend analysis platform built using FastAPI and Streamlit. The application aggregates official public health news sources, analyzes topic-level trends, and presents readable summaries and visual insights strictly for educational and research purposes.
+EpiTrends is a Python-based application designed to fetch, summarize, and analyze public health trends from **official sources like WHO and CDC**. It provides trend status, article counts, and headline summaries for health-related topics, assisting researchers, students, and healthcare professionals with **educational insights**.
 
-Project Overview 🎯
+---
 
-The goal of HealthTrendAnalyzer is to help users explore public health trends such as vaccination, COVID-19, flu, mental health, and maternal health. It collects news from authoritative public health organizations, applies domain-aware keyword expansion for better coverage, classifies trends based on article volume, and presents summaries and visual charts in an interactive dashboard.
+## Features ✨
 
-This application does not provide medical advice.
+* Fetches health news from official RSS feeds (WHO, CDC)
+* Summarizes articles for topics like **vaccination, COVID-19, flu, mental health, maternal health**
+* Trend detection: Trending, Moderate, or Low activity
+* FastAPI backend with easy-to-use endpoints
+* Expandable keywords for broader topic coverage
+* Educational and non-medical guidance only
 
-Key Features ✨
+---
 
-Use of official public health data sources such as the World Health Organization and the Centers for Disease Control and Prevention
-Expanded keyword-based topic retrieval to improve news coverage
-Clear trend classification including low, moderate, and trending activity
-Human-readable summaries generated from official headlines
-Interactive visual trend comparison charts
-Ethical disclaimer for public health-related content
-Clear separation of frontend and backend architecture
+## Tech Stack 🛠️
 
-System Architecture 🏗️
+* **Python 3.10+**
+* **FastAPI** – Backend API
+* **Uvicorn** – ASGI server
+* **Feedparser** – RSS feed processing
+* **Streamlit** – Optional frontend for interactive dashboards
+* **Git & GitHub** – Version control
+* **Virtual Environment (.venv)** – Local dependency isolation
 
-The user interacts with a Streamlit-based frontend interface. The frontend sends requests to a FastAPI backend, which fetches and processes data from official RSS feeds provided by organizations such as WHO and CDC. The backend then returns structured summaries and trend indicators to the frontend.
+---
 
-Frontend Responsibilities 🖥️
+## Setup Guide 🚀
 
-Allow users to select up to four public health topics
-Provide options for selecting data sources
-Trigger summary generation requests
-Display summaries and trend visualizations
+### 1. Clone the repository
 
-Backend Responsibilities ⚙️
+Open your terminal in VS Code (or any terminal) and run:
 
-Validate incoming user requests
-Aggregate RSS feeds from official public health sources
-Apply expanded health-related keyword mappings
-Count relevant articles per topic
-Determine trend levels based on article volume
+```bash
+git clone https://github.com/FaryalRizwaan/EpiTrends.git
+cd EpiTrends
+```
 
-Data Sources 📰
+---
 
-This project intentionally avoids social media and unverified sources. It relies only on trusted and authoritative organizations to ensure accuracy, scientific credibility, and public health relevance.
+### 2. Setup a Python virtual environment
 
-World Health Organization
-Centers for Disease Control and Prevention
+Create a `.venv` to isolate dependencies:
 
-Trend Classification Logic 📊
+```bash
+python -m venv .venv
+```
 
-Topics with seven or more related articles are classified as Trending
-Topics with three to six related articles are classified as Moderate Activity
-Topics with fewer than three related articles are classified as Low Activity
+Activate it:
 
-This rule-based approach ensures transparent and explainable trend labeling.
+* **Windows:**
 
-Technology Stack 🧠
+```bash
+.venv\Scripts\activate
+```
 
-Frontend built with Streamlit
-Backend built with FastAPI
-RSS parsing handled using feedparser
-Visualizations created using Streamlit charts and pandas
-Server run using Uvicorn
-Programming language Python version 3.10 or higher
+* **Mac/Linux:**
 
-Installation and Setup 🛠️
+```bash
+source .venv/bin/activate
+```
 
-Clone the repository and navigate into the project directory. Create and activate a virtual environment, then install dependencies using the requirements file.
+---
 
-Running the Application ▶️
+### 3. Install dependencies
 
-Start the backend server using python backend.py. The backend runs locally on port 5000.
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
 
-Start the frontend dashboard using streamlit run frontend.py. The application opens in the browser.
+> This ensures all libraries like FastAPI, Uvicorn, Feedparser are installed.
 
-Ethical Disclaimer ⚠️
+---
 
-This application provides public health trend summaries for educational and research purposes only. It does not offer medical advice, diagnosis, or treatment recommendations. Users should consult qualified healthcare professionals for medical decisions.
+### 4. Run the backend server
 
-Data Ethics and Responsibility 🔐
+```bash
+uvicorn backend:app --reload --host 0.0.0.0 --port 5000
+```
 
-No personal data is collected
-No predictive or diagnostic health claims are made
-No medical recommendations are generated
-Only publicly available official information is used
+* Access API locally at: `http://127.0.0.1:5000`
+* Endpoint: `/generate-news-summary` accepts POST requests with JSON payload.
 
-Future Enhancements 🚀
+---
 
-Addition of UNICEF, NIH, and national health portals
-Time-series trend comparison and visualization
-Topic clustering and deeper analytics
-Audio summaries for accessibility
-API caching and performance optimization
+### 5. Example API Request
 
-Author 👩‍💻
+**POST** `http://127.0.0.1:5000/generate-news-summary`
 
-Faryal
-Public Health and Data Analytics Project
+```json
+{
+  "topics": ["vaccination", "covid"],
+  "source_type": "news"
+}
+```
 
-Project Significance 🌍
+**Response:**
 
-HealthTrendAnalyzer demonstrates real-world data engineering skills, ethical handling of health information, clean system design, and practical public health analytics suitable for academic evaluation and professional portfolios.
+* Summaries per topic
+* Article counts
+* Trend status
+
+---
+
+### 6. Optional: Frontend with Streamlit
+
+If you want an interactive dashboard:
+
+```bash
+streamlit run frontend.py
+```
+
+* Open in browser: `http://localhost:8501`
+* Sidebar lets you select topics and source types
+
+---
+
+## Best Practices ⚡
+
+* **Do not commit `.venv`** to GitHub – it is ignored via `.gitignore`
+* Use `git pull origin main` to sync latest updates
+* Handle CRLF/LF warnings in Windows:
+
+```bash
+git config --global core.autocrlf true
+```
+
+---
+
+## Contributing 🤝
+
+1. Fork the repository
+2. Create a new branch:
+
+```bash
+git checkout -b feature/your-feature-name
+```
+
+3. Commit your changes:
+
+```bash
+git commit -m "Add feature X"
+```
+
+4. Push and create a pull request
+
+
+
+## License 📄
+
+MIT License – Free to use and modify for educational purposes.
